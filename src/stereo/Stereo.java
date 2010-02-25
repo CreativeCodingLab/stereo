@@ -148,7 +148,7 @@ public class Stereo
   public void right(GL gl)
   {
 
-        switch (this.stereoType)
+    switch (this.stereoType)
     {
       case ACTIVE:
         gl.glDrawBuffer(gl.GL_BACK_LEFT);
