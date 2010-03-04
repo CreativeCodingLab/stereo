@@ -30,7 +30,7 @@ void setup()
   
   // set last parameter according to type of stereo
   // ACTIVE, PASSIVE, ANAGLYPH_REDLEFT_CYANRIGHT, ANAGLYPH_CYANLEFT_REDRIGHT etc.
-  stereo = new Stereo(this, eyeSep, 45f, .1f, 1000f, Stereo.StereoType.ACTIVE);
+  stereo = new Stereo(this, eyeSep, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_CYANLEFT_REDRIGHT);
 }
 
 //these are test variables....
