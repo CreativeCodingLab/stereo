@@ -151,7 +151,7 @@ public class Stereo
     switch (this.stereoType)
     {
       case ACTIVE:
-        gl.glDrawBuffer(gl.GL_BACK_LEFT);
+        gl.glDrawBuffer(gl.GL_BACK_RIGHT);
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
         break;
       case ANAGLYPH_REDLEFT_CYANRIGHT:
@@ -211,7 +211,9 @@ public class Stereo
 //    }
 
     // TODO: do we need to clear depth and color buffers here for active stereo?
-
+    gl.glMatrixMode(gl.GL_PROJECTION);
+    gl.glLoadIdentity();
+    gl.glViewport(0, 0, this.w, this.h);
     double top = widthdiv2;
     double bottom = -widthdiv2;
     double left = -aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / cameraFO;
