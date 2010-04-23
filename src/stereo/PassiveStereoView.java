@@ -6,11 +6,11 @@ import processing.opengl.PGraphicsOpenGL;
 
 /*
  *
- * @author Angus Forbes & Charlie Roberts,
- * (but basically is just the same function as allocate() in PGraphicsOpenGL)
+ * @author Angus Forbes & Charlie Roberts
+ * (but basically is just the same function as allocate in PGraphicsOpenGL
  */
 
-public class ActiveStereoView extends PGraphicsOpenGL
+public class PassiveStereoView extends PGraphicsOpenGL
 {
 
   @Override
@@ -33,8 +33,7 @@ public class ActiveStereoView extends PGraphicsOpenGL
       }
 
       capabilities.setDoubleBuffered(true);
-      capabilities.setStereo(true);
-
+   
       // get a rendering surface and a context for this canvas
       GLDrawableFactory factory = GLDrawableFactory.getFactory();
 

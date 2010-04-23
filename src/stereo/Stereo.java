@@ -2,7 +2,6 @@ package stereo;
 
 import com.sun.opengl.util.GLUT;
 import javax.media.opengl.GL;
-import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.glu.GLU;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -30,7 +29,6 @@ public class Stereo
   public float eyeSeperation;
   double aspectRatio, nearPlane, farPlane, widthdiv2, cameraFO;
   int w, h;
-  GLCapabilities cap;
   GLU glu = null;
   GLUT glut = null;
   double fovy = 45;
@@ -44,9 +42,6 @@ public class Stereo
     this.app = app;
     this.glu = new GLU();
     this.glut = new GLUT();
-    this.cap = new GLCapabilities();
-    this.cap.setStereo(true);
-    this.cap.setDoubleBuffered(true);
     this.nearPlane = nearPlane;
     this.farPlane = farPlane;
     this.fovy = fovy;
@@ -156,22 +151,18 @@ public class Stereo
         break;
       case ANAGLYPH_REDLEFT_CYANRIGHT:
         gl.glColorMask(false, true, true, true);
-    //    gl.glColorMask(true, false, false, true);
         gl.glViewport(0, 0, this.w, this.h);
         break;
       case ANAGLYPH_CYANLEFT_REDRIGHT:
         gl.glColorMask(true, false, false, true);
-      //  gl.glColorMask(false, true, true, true);
         gl.glViewport(0, 0, this.w, this.h);
         break;
       case ANAGLYPH_REDLEFT_BLUERIGHT:
         gl.glColorMask(false, false, true, true);
-        //gl.glColorMask(true, false, false, true);
         gl.glViewport(0, 0, this.w, this.h);
         break;
       case ANAGLYPH_BLUELEFT_REDRIGHT:
         gl.glColorMask(true, false, false, true);
-       // gl.glColorMask(false, false, true, true);
         gl.glViewport(0, 0, this.w, this.h);
         break;
       case PASSIVE:
@@ -180,35 +171,6 @@ public class Stereo
       default:
         gl.glViewport(0, 0, this.w, this.h);
     }
-
-    /*
-    switch (this.stereoType)
-    {
-      case ANAGLYPH_REDLEFT_CYANRIGHT:
-        gl.glColorMask(false, true, true, true);
-        break;
-      case ANAGLYPH_CYANLEFT_REDRIGHT:
-        gl.glColorMask(true, false, false, true);
-        break;
-      case ANAGLYPH_REDLEFT_BLUERIGHT:
-        gl.glColorMask(false, false, true, true);
-        break;
-      case ANAGLYPH_BLUELEFT_REDRIGHT:
-        gl.glColorMask(true, false, false, true);
-        break;
-    }
-    */
-//    gl.glMatrixMode(gl.GL_PROJECTION);
-//    gl.glLoadIdentity();
-
-//    switch (this.stereoType)
-//    {
-//      case PASSIVE:
-//        gl.glViewport(this.w / 2, 0, this.w, this.h);
-//        break;
-//      default:
-//        gl.glViewport(0, 0, this.w, this.h);
-//    }
 
     // TODO: do we need to clear depth and color buffers here for active stereo?
     gl.glMatrixMode(gl.GL_PROJECTION);

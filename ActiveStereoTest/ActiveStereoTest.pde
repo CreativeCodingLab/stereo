@@ -1,12 +1,15 @@
-/* AnaglyphTest.pde
+/* ActiveStereoTest.pde
 ** 
+** DO NOT RUN THIS IF YOU DO NOT HAVE A STEREO CARD!!!
+** IT MAY CRASH YOUR SYSTEM!!!
+**
 ** Test for Stereo library for Processing by
 ** Angus Forbes and Charlie Roberts. Displays
 ** quads moving along z axis in stereo. Experiment
 ** with eye separation using right and left arrow
 ** keys.
 **
-** 4/23/2010
+** created 4/23/2010
 */
 
 import processing.opengl.*;
@@ -17,7 +20,7 @@ Stereo stereo = null;
 Quad[] quads;
 void setup() 
 {
-  size(640, 480, "stereo.PassiveStereoView");
+  size(640, 480, "stereo.ActiveStereoView");
   frame.setResizable(true);
   quads = new Quad[20];
   for(int i = 0; i<20; i++) {
@@ -40,7 +43,7 @@ void draw()
 {
   background(0,0,0,255);
   
-  PassiveStereoView pgl = (PassiveStereoView) g;
+  ActiveStereoView pgl = (ActiveStereoView) g;
 
   GL gl = pgl.beginGL();  
   {   
