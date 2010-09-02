@@ -10,6 +10,7 @@ import processing.opengl.PGraphicsOpenGL;
  * (but basically is just the same function as allocate in PGraphicsOpenGL
  */
 
+//test
 public class PassiveStereoView extends PGraphicsOpenGL
 {
 
