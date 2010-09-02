@@ -12,7 +12,7 @@ import processing.opengl.PGraphicsOpenGL;
 
 public class ActiveStereoView extends PGraphicsOpenGL
 {
-
+  kjkjk
   @Override
   protected void allocate()
   {
