@@ -10,6 +10,8 @@ import processing.opengl.PGraphicsOpenGL;
  * (but basically is just the same function as allocate() in PGraphicsOpenGL)
  */
 
+///testing fugitive.vim
+
 public class ActiveStereoView extends PGraphicsOpenGL
 {
   kjkjk
