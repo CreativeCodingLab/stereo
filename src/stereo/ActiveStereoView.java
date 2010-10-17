@@ -11,12 +11,9 @@ import processing.opengl.PGraphicsOpenGL;
  */
 
 ///testing fugitive.vim
-//tttt
-//dfdkfjk
-//jkjkj
+
 public class ActiveStereoView extends PGraphicsOpenGL
 {
-  kjkjk
   @Override
   protected void allocate()
   {
