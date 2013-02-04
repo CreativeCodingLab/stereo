@@ -125,7 +125,11 @@ public class Stereo
 
     gl.glMatrixMode(gl.GL_PROJECTION);
     gl.glLoadIdentity();
-    gl.glViewport(0, 0, this.w, this.h);
+    if (this.stereoType == StereoType.PASSIVE) {
+      gl.glViewport(0, 0, this.w / 2, this.h);
+    } else {
+      gl.glViewport(0, 0, this.w, this.h);
+    }
     double top = widthdiv2;
     double bottom = -widthdiv2;
     double left = -aspectRatio * widthdiv2 + 0.5 * eyeSeperation * nearPlane / cameraFO;
@@ -166,7 +170,7 @@ public class Stereo
         gl.glViewport(0, 0, this.w, this.h);
         break;
       case PASSIVE:
-        gl.glViewport(0, 0, this.w / 2, this.h);
+        gl.glViewport(this.w/2, 0, this.w / 2, this.h);
         break;
       default:
         gl.glViewport(0, 0, this.w, this.h);
@@ -175,7 +179,12 @@ public class Stereo
     // TODO: do we need to clear depth and color buffers here for active stereo?
     gl.glMatrixMode(gl.GL_PROJECTION);
     gl.glLoadIdentity();
-    gl.glViewport(0, 0, this.w, this.h);
+     if (this.stereoType == StereoType.PASSIVE) {
+      gl.glViewport(this.w/2, 0, this.w / 2, this.h);
+    } else {
+      gl.glViewport(0, 0, this.w, this.h);
+    }
+
     double top = widthdiv2;
     double bottom = -widthdiv2;
     double left = -aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / cameraFO;
