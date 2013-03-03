@@ -10,6 +10,10 @@ or especially if you have some demo code that uses this library.
 Projects that use (or have used) this library:
 
 SCRAPE (SCReen Adjusted Panoramic Effect) : https://github.com/c-flynn/SCRAPE
+
 Allosphere Research Facility : http://www.allosphere.ucsb.edu/
+
 Annular Genealogy art project : http://vimeo.com/43759229
+
 Philip Galanter's 3D Interactive Wall : http://philipgalanter.com/
+
