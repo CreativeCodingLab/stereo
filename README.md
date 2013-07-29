@@ -1,7 +1,7 @@
 stereo
 ======
 
-Stereographic library for Processing 1.5.1, based on code by Paul Bourke. This port to Processing was created by Charlie Roberts and Angus Forbes. 
+Stereographic library for Processing 2 and 1.5.1 (see the processing_1.5.1 branch), based on code by Paul Bourke. This port to Processing was created by Charlie Roberts and Angus Forbes. 
 Includes code to work with the GLGraphics library (see how in the ActiveStereoTestGLGraphics demo). 
 Or you can use raw OpenGL (see ActiveStereoTest and AnaglyphTest and PassiveStereoTest demos). 
 Should be pretty straightforward. Feel free to send me an email at angus.forbes (at) gmail if you have questions, 
