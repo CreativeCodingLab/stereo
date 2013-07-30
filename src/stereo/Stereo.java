@@ -1,20 +1,18 @@
 package stereo;
 
-import com.sun.opengl.util.GLUT;
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
+
+import javax.media.opengl.*;
+import javax.media.opengl.glu.*;
+import com.jogamp.opengl.util.gl2.GLUT;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-/**
- *
- * @author Angus Forbes & Charlie Roberts, based on code by Paul Bourke
- */
-public class Stereo
-{
 
-  public enum StereoType
-  {
+
+public class Stereo {
+
+  
+  public enum StereoType {
 
     ACTIVE,
     PASSIVE,
@@ -22,12 +20,13 @@ public class Stereo
     ANAGLYPH_REDLEFT_CYANRIGHT,
     ANAGLYPH_CYANLEFT_REDRIGHT,
     ANAGLYPH_BLUELEFT_REDRIGHT
-  }
+  } 
 
+ 
   public StereoType stereoType = null;
   PApplet app = null;
   public float eyeSeperation;
-  double aspectRatio, nearPlane, farPlane, widthdiv2, cameraFO;
+  double aspectRatio, nearPlane, farPlane, widthdiv2, convPlane;
   int w, h;
   GLU glu = null;
   GLUT glut = null;
@@ -37,7 +36,8 @@ public class Stereo
   float upx, upy, upz;
   float rightx, righty, rightz;
 
-  public Stereo(PApplet app, float eyeSeperation, float fovy, float nearPlane, float farPlane, StereoType stereoType)
+// old constructor convergence distance is calculated as 30 times the eye separation
+  public Stereo(PApplet app, float eyeSeperation, float fovy, float nearPlane, float farPlane, Stereo.StereoType stereoType)
   {
     this.app = app;
     this.glu = new GLU();
@@ -46,28 +46,82 @@ public class Stereo
     this.farPlane = farPlane;
     this.fovy = fovy;
     this.eyeSeperation = eyeSeperation;
+    this.convPlane = eyeSeperation*30.0;
+    this.stereoType = stereoType;
+
+    // TODO: if stereoType == PASSIVE should we double the window size for the user or assume they will double it themselves?
+  }
+  
+  // second constructor eye separation and conv plane are explictly set
+  public Stereo(PApplet app, float eyeSeperation, float fovy, float nearPlane, float farPlane, StereoType stereoType, float convPlane )
+  {
+    this.app = app;
+    this.glu = new GLU();
+    this.glut = new GLUT();
+    this.nearPlane = nearPlane;
+    this.farPlane = farPlane;
+    this.fovy = fovy;
+    this.eyeSeperation = eyeSeperation;
+    this.convPlane = convPlane;
     this.stereoType = stereoType;
 
     // TODO: if stereoType == PASSIVE should we double the window size for the user or assume they will double it themselves?
   }
 
-  public void end(GL gl)
+  // third constructor eye separation is calculated as 1/30th from the conv distance
+  public Stereo(PApplet app, float fovy, float nearPlane, float farPlane, Stereo.StereoType stereoType, float convPlane )
+  {
+    this.app = app;
+    this.glu = new GLU();
+    this.glut = new GLUT();
+    this.nearPlane = nearPlane;
+    this.farPlane = farPlane;
+    this.fovy = fovy;
+   
+    this.convPlane = convPlane;
+    this.eyeSeperation = convPlane/30.0f;
+    this.stereoType = stereoType;
+
+    // TODO: if stereoType == PASSIVE should we double the window size for the user or assume they will double it themselves?
+  }
+
+  // fourth constructor convergence distance is calculated from the  near and far planes, eye separation is calculated as 1/30th from the conv distance
+  public Stereo(PApplet app, float fovy, float nearPlane, float farPlane, Stereo.StereoType stereoType )
+  {
+    this.app = app;
+    this.glu = new GLU();
+    this.glut = new GLUT();
+    this.nearPlane = nearPlane;
+    this.farPlane = farPlane;
+    this.fovy = fovy;
+    this.convPlane = (float)(nearPlane + (farPlane - nearPlane)/100.0f);
+    this.eyeSeperation = (float)convPlane/30.f;
+    this.stereoType = stereoType;
+
+    // TODO: if stereoType == PASSIVE should we double the window size for the user or assume they will double it themselves?
+  }
+  public void end(GL2 gl)
   {
     gl.glColorMask(true, true, true, true);
   }
 
-  public void start(GL gl,
+  public void start(GL2 gl,
     float posx, float posy, float posz,
     float dirx, float diry, float dirz,
     float upx, float upy, float upz)
   {
     this.w = app.getWidth();
     this.h = app.getHeight();
-
-    this.aspectRatio = (double) w / (double) h;
+    
+    if (this.stereoType == StereoType.PASSIVE){
+    this.aspectRatio = (double) (w/2.0) / (double) h;
+    }
+    else{
+     this.aspectRatio = (double) w / (double) h;
+    
+    }
+    
     this.widthdiv2 = nearPlane * Math.tan(this.fovy / 2); // aperture in radians
-    this.cameraFO = farPlane - nearPlane;
-
     this.posx = posx;
     this.posy = posy;
     this.posz = posz;
@@ -89,7 +143,7 @@ public class Stereo
     this.rightz = cright.z * eyeSeperation / 2.0f;
   }
 
-  public void left(GL gl)
+  public void left(GL2 gl)
   {
 
     switch (this.stereoType)
@@ -132,8 +186,8 @@ public class Stereo
     }
     double top = widthdiv2;
     double bottom = -widthdiv2;
-    double left = -aspectRatio * widthdiv2 + 0.5 * eyeSeperation * nearPlane / cameraFO;
-    double right = aspectRatio * widthdiv2 + 0.5 * eyeSeperation * nearPlane / cameraFO;
+    double left = -aspectRatio * widthdiv2 + 0.5 * eyeSeperation * nearPlane / convPlane;
+    double right = aspectRatio * widthdiv2 + 0.5 * eyeSeperation * nearPlane / convPlane;
     gl.glFrustum(left, right, bottom, top, nearPlane, farPlane);
 
     gl.glMatrixMode(gl.GL_MODELVIEW);
@@ -144,7 +198,7 @@ public class Stereo
       upx, upy, upz);
   }
 
-  public void right(GL gl)
+  public void right(GL2 gl)
   {
 
     switch (this.stereoType)
@@ -187,8 +241,8 @@ public class Stereo
 
     double top = widthdiv2;
     double bottom = -widthdiv2;
-    double left = -aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / cameraFO;
-    double right = aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / cameraFO;
+    double left = -aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / convPlane;
+    double right = aspectRatio * widthdiv2 - 0.5 * eyeSeperation * nearPlane / convPlane;
     gl.glFrustum(left, right, bottom, top, nearPlane, farPlane);
 
     gl.glMatrixMode(gl.GL_MODELVIEW);
@@ -199,3 +253,6 @@ public class Stereo
       upx, upy, upz);
   }
 }
+
+
+
