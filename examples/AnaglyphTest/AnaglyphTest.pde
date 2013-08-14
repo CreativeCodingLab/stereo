@@ -1,13 +1,3 @@
-/* AnaglyphTest.pde
- ** 
- ** Test for Stereo library for Processing by
- ** Angus Forbes and Charlie Roberts. Displays
- ** quads moving along z axis in stereo. Experiment
- ** with eye separation using right and left arrow
- ** keys.
- **
- ** 4/23/2010
- */
 
 import processing.opengl.*;
 import javax.media.opengl.*; 
@@ -40,13 +30,17 @@ void setup() {
 
   // set last parameter according to type of stereo
   // ACTIVE, PASSIVE, ANAGLYPH_REDLEFT_CYANRIGHT, ANAGLYPH_CYANLEFT_REDRIGHT etc.
-  // first constructor old version compatible
-  //  stereo = new Stereo(this, eyeSep, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_REDLEFT_CYANRIGHT);
-  // second constructor
+  
+  /* first constructor, custom eye separation, default convergence */
+  // stereo = new Stereo(this, eyeSep, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_REDLEFT_CYANRIGHT);
+  
+  /* second constructor, custom eye separation, custom convergence */
   stereo = new Stereo(this, eyeSep, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_REDLEFT_CYANRIGHT, convPlane);
-  // third constructor
+  
+  /* third constructor, default eye separation, custom convergence */
   //stereo = new Stereo(this, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_REDLEFT_CYANRIGHT,convPlane);
-  // fourth constructor
+  
+  /* fourth constructor, default eye separation, default convergence */
   //  stereo = new Stereo(this, 45f, .1f, 1000f, Stereo.StereoType.ANAGLYPH_REDLEFT_CYANRIGHT);
 }
 
