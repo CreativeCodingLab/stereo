@@ -3,6 +3,7 @@ import processing.opengl.*;
 import javax.media.opengl.*; 
 import javax.media.opengl.GL2;
 import stereo.*;
+//import java.nio.*;
 
 Stereo stereo = null;
 Quad[] quads;
@@ -51,8 +52,11 @@ void draw() {
 
   background(0,0,0,255);
 
-  PGraphicsOpenGL pgl = (PGraphicsOpenGL) g;
-  GL2 gl = pgl.beginPGL().gl.getGL2(); {   
+  //PGraphicsOpenGL pgl = (PGraphicsOpenGL) g;
+  //pgl.beginPGL();
+  //GL2 gl = PJOGL.gl.getGL2(); {//pgl.beginPGL().gl.getGL2(); {
+  PGL pgl = beginPGL();
+  GL2 gl = ((PJOGL)pgl).gl.getGL2(); {
     // only needs to be called repeatedly if you are
     // changing camera position   
     stereo.start(gl, 
@@ -68,8 +72,8 @@ void draw() {
 
     // only needed for anaglyph
     stereo.end(gl);
-  } pgl.endPGL();
-
+  } 
+  endPGL();//pgl.endPGL();
 }
 
 void render(GL2 gl) {
