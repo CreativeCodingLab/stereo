@@ -1,21 +1,5 @@
 /*
-  Part of the Processing project - http://processing.org
 
-  Copyright (c) 2011-12 Ben Fry and Casey Reas
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License version 2.1 as published by the Free Software Foundation.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General
-  Public License along with this library; if not, write to the
-  Free Software Foundation, Inc., 59 Temple Place, Suite 330,
-  Boston, MA  02111-1307  USA
  */
 
 #ifdef GL_ES
@@ -23,9 +7,26 @@ precision mediump float;
 precision mediump int;
 #endif
 
+uniform vec3 diffuseLightColor;
+uniform vec3 ambientLightColor;
+
+
+
+varying vec4 vertNormal;
 varying vec4 vertColor;
+varying vec3 lightVector;
+
+
 
 void main() {
-  //gl_FragColor = vertColor;
-  gl_FragColor = vec4(1.0,0.0,0.0,1.0);
+  vec3 color;
+  float diffuseCoefficient;
+
+  diffuseCoefficient = max(0.0,dot(vertNormal.xyz,lightVector));
+  color = vec3(diffuseCoefficient, diffuseCoefficient, diffuseCoefficient)  * diffuseLightColor; 
+  
+
+
+  gl_FragColor = clamp(vec4(color,1.0) + vec4(ambientLightColor,1.0),0.0,1.0);
+
 }

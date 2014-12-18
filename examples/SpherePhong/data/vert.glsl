@@ -1,31 +1,36 @@
 /*
-  Part of the Processing project - http://processing.org
-
-  Copyright (c) 2011-12 Ben Fry and Casey Reas
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License version 2.1 as published by the Free Software Foundation.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General
-  Public License along with this library; if not, write to the
-  Free Software Foundation, Inc., 59 Temple Place, Suite 330,
-  Boston, MA  02111-1307  USA
+ 
  */
 
 uniform mat4 transform;
+uniform mat4 modelview;
+uniform mat3 normalMatrix;
+uniform vec3 lightPosition;
+
 
 attribute vec4 vertex;
+attribute vec3 normal;
 attribute vec4 color;
 
+varying vec4 vertNormal;
 varying vec4 vertColor;
+varying vec3 lightVector;
+
+
 
 void main() {
-  gl_Position = transform * vertex;    
+  vec4 position;
+  vec4 light;
+  position = transform * vertex; 
+
+  vec3 ecVertex = vec3(modelview * vertex);  
+  
+  light = modelview * vec4(lightPosition,1.0);
+
+
+  lightVector = normalize(lightPosition - ecVertex);
+  vertNormal = vec4(normalize(normalMatrix * normal),1.0);
+
   vertColor = color;
+  gl_Position = position;  
 }
