@@ -11,17 +11,14 @@ PShader sh;
 PShape sphere;
 Stereo stereo = null;
 
-float[] Theparams = new float[3];
 
 void setup() {
   size(800, 600, P3D);
 
-  Theparams[0] = 0.85; // simetry
-  Theparams[1] = 0.4; // radia distortion
-  Theparams[2] = 1.0; // Y scale factor
-
-  float convPlane =10.0f;
+  float convPlane =20.0f;
   float eyeSep = (float) (convPlane / 30f); 
+  
+  frameRate(60);
   
   /* second constructor, custom eye separation, custom convergence */
   stereo = new Stereo(
@@ -30,7 +27,7 @@ void setup() {
     convPlane);
   
   sh = loadShader("frag.glsl", "vert.glsl");
-  sphere = createShape(SPHERE, 100);
+  sphere = createShape(SPHERE, 2);
   sphere.setStroke(0);
 }
 
@@ -38,7 +35,7 @@ float cx = 0f; float cy = 0f; float cz = 10f;
 
 void draw() {
 
-  background(0);
+  background(0,0,0,255);
 
   shader(sh);
   //camera(width/2.0, height/2.0, 50.0, width/2.0, height/2.0, 0.0, 0.0, 1.0, 0.0);
@@ -54,7 +51,7 @@ void draw() {
 
   sh.set("lightPosition", new PVector(-width/2.0, 0.0, 0.0));
   //sh.set("color", new PVector(1.0,0.0,0.0));
-  sh.set("diffuseLightColor", new PVector(0.0, 0.0, 1.0));
+  sh.set("diffuseLightColor", new PVector(1.0, 1.0, 1.0));
   sh.set("ambientLightColor", new PVector(0.1, 0.1, 0.1));
 
   PGL pgl = beginPGL();
