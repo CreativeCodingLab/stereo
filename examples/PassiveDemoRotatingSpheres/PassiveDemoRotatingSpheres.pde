@@ -119,7 +119,7 @@ void draw() {
     
     //Third Sphere
     //Setting color
-    sh.set("diffuseLightColor", new PVector(0.8, 0.0, 0.0));
+    sh.set("diffuseLightColor", new PVector(89.0f/255.0f, 171.0f/255.0f, 227.0f/255.0f));
     
     //Setting position
     pushMatrix();
