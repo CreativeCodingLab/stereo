@@ -104,6 +104,13 @@ void draw() {
 }
 
 
+public void keyPressed()
+  {
+    if(keyCode == LEFT) stereo.eyeSeperation -= .01;
+    if(keyCode == RIGHT) stereo.eyeSeperation += .01;
+  }
+
+
 
 
 
