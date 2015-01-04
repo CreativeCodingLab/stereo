@@ -48,8 +48,10 @@ void setup() {
       void draw() {
         background(0,0,0,255);
         
-          PGraphicsOpenGL pgl = (PGraphicsOpenGL) g;
-        GL2  gl = pgl.beginPGL().gl.getGL2();
+          //PGraphicsOpenGL pgl = (PGraphicsOpenGL) g;
+        //GL2  gl = pgl.beginPGL().gl.getGL2();
+        PGL pgl = beginPGL();
+        GL2 gl = ((PJOGL)pgl).gl.getGL2();
         {   
           // only needs to be called repeatedly if you are
           // changing camera position   
@@ -67,7 +69,7 @@ void setup() {
           // only needed for anaglyph
           stereo.end(gl);
         }
-        pgl.endPGL();
+        endPGL();//pgl.endPGL();
       }
       
       void render(GL2 gl)
