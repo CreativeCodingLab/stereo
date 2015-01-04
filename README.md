@@ -1,9 +1,9 @@
 stereo
 ======
 
-Stereographic library for Processing 2 (see the processing_1.5.1 branch for the previous version), based on code by Paul Bourke. This port to Processing was created by Charlie Roberts and Angus Forbes, with additional bugs fixed by Javier Villegas.
+Stereographic library for Processing 2.2.1 (see the branches that work with previous versions of Processing), based on code by Paul Bourke. This port to Processing was originally created by Charlie Roberts and Angus Forbes. It continues to be maintained by Angus Forbes. Javier Villegas fixed a number of bugs and helped port examples to Processing 2.0. Massimo De Marchi and Giorgio Conte created examples that work with Processing 2.2.1. Many thanks to Andres Colubri for resolving some of the issues introduced in Processing 2.0 (and now resolved in 2.2.1).
 
-This version of the library gives you more flexibility in setting the convergence and eye separation. Unfortunately, some of the changes to Processing 2.0 have made it difficult to access the JOGL capabilities, so I haven't figure out how to create an active stereo window. So, if you are planning on using this library for active stereo you will have to use the processing_1.5.1 branch. I've added this as an issue to the Processing project, but if anyone has any ideas on how to resolve this, please let us know! In the meantime, anaglyph and passive work great, and we've created some simple examples to demonstrate them.
+This 2.2.1 version of the library gives you more flexibility in setting the convergence and eye separation. The 2.2.1 gives you access to the JOGL "capabilities", so we can set up an active stereo context (as we can in 1.5.1, but couldn't in 2.0). However, the drivers for Nvidia's consumer level active stereo systems have issues with OpenGL. (A work around might be found at https://github.com/tliron/opengl-3d-vision-bridge, but we haven't had a chance to incorporate it.) So, if you are planning on using this library for active stereo, the only one that has been explicitly tested by us is the 1.5.1 branch. In the meantime, anaglyph and passive work great, and we've created some simple examples to demonstrate them.
 
 Feel free to send me an email at angus.forbes (at) gmail if you have questions, or especially if you have some demo code that uses this library.
 
