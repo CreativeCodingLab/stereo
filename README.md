@@ -21,4 +21,6 @@ Philip Galanter's 3D Interactive Wall : http://philipgalanter.com/
 
 Emanuel Haas's Dance of Molecules : http://www.behance.net/gallery/Dance-of-Molecules/11614101
 
+Andy Modla's PhotoCube library for Cardboard : http://andymodlaphotography.blogspot.com/2015/07/stereo-photo-cube-app-for-cardboard.html and https://github.com/ajavamind/processing-android/tree/master/AndroidStereoMultiTextureCube
+
 
